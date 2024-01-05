@@ -37,8 +37,10 @@ function createService() {
       switch (errorCode) {
         case "999403":
           // Token 过期时
-          Promise.reject(new Error("登录状态已过期"));
-          return logout();
+          ElMessage.error("登录状态已过期");
+          debugger;
+          logout();
+          return Promise.reject(new Error("登录状态已过期"));
         default:
           // 其他错误类型
           ElMessage.error(res.errorMessage || "Error");

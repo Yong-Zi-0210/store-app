@@ -1,0 +1,23 @@
+// 滚动条样式
+
+// 外层滚动槽
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+// 内层滚动槽
+::-webkit-scrollbar-track-piece {
+  display: none;
+  background: transparent;
+}
+
+// 整体
+::-webkit-scrollbar {
+  background: transparent;
+  width: 6px;
+}
+
+// 滚动滑块
+::-webkit-scrollbar-thumb {
+  background-color: rgba(144, 147, 153, 0.3);
+  border-radius: 3px;
+}

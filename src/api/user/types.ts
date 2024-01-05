@@ -1,9 +1,9 @@
 import { ApiResponseData } from "@/utils/request/types";
 export interface LoginRequestData {
   /** 用户名 */
-  account: string;
+  account?: string;
   /** 密码 */
-  password: string;
+  password?: string;
   /** 手机 */
   phone?: string;
   /** 验证码 */

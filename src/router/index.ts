@@ -15,22 +15,72 @@ const routers: RouteRecordRaw[] = [
       hidden: true,
     },
   },
-  //   {
-  //     path: "/",
-  //     component: Layout,
-  //     redirect: "/home",
-  //     children: [
-  //       {
-  //         path: "home",
-  //         component: () => import("@/views/home/index.vue"),
-  //         name: "Home",
-  //         meta: {
-  //           title: "首页",
-  //           svgIcon: "home",
-  //         },
-  //       },
-  //     ],
-  //   },
+  {
+    path: "/",
+    component: Layout,
+    redirect: "/home",
+    children: [
+      {
+        path: "home",
+        component: () => import("@/views/home/index.vue"),
+        name: "Home",
+        meta: {
+          title: "首页",
+        },
+      },
+      {
+        path: "hotel",
+        component: () => import("@/views/hotel/index.vue"),
+        name: "Hotel",
+        meta: {
+          title: "酒店",
+        },
+      },
+      {
+        path: "usedcar",
+        component: () => import("@/views/usedCar/index.vue"),
+        name: "usedCar",
+        redirect: "/usedcar/rec",
+        meta: {
+          title: "二手车",
+        },
+        children: [
+          {
+            path: "rec",
+            component: () => import("@/views/usedCar/rec/index.vue"),
+            name: "Rec",
+            meta: {
+              title: "推荐",
+            },
+          },
+          {
+            path: "search",
+            component: () => import("@/views/usedCar/search/index.vue"),
+            name: "Search",
+            meta: {
+              title: "搜索",
+            },
+          },
+          {
+            path: "detail",
+            component: () => import("@/views/usedCar/detail/index.vue"),
+            name: "Detail",
+            meta: {
+              title: "详情",
+            },
+          },
+        ],
+      },
+      {
+        path: "quality",
+        component: () => import("@/views/quality/index.vue"),
+        name: "Quality",
+        meta: {
+          title: "精品",
+        },
+      },
+    ],
+  },
 ];
 
 const router = createRouter({

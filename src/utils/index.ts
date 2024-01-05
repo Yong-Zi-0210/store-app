@@ -36,7 +36,26 @@ export const formatDateTime = (
 };
 
 /** 获取时间戳 */
-
 export const timestamp = (time: string | number | Date) => {
   return time ? dayjs(new Date(time)).unix() : "N/A";
+};
+
+/** 设置公里显示格式 */
+export const setMileage = (mileage: number) => {
+  if (mileage.toString().length <= 3) {
+    return `${mileage}公里`;
+  } else if (mileage.toString().length > 2) {
+    const newMileage = (mileage / 10000).toFixed(2);
+    return `${newMileage}万公里`;
+  }
+};
+
+/** 设置价格显示格式 */
+export const setPrice = (price: number) => {
+  if (price.toString().length <= 3) {
+    return price;
+  } else if (price.toString().length > 2) {
+    const newPrice = (price / 10000).toFixed(2);
+    return `${newPrice}万`;
+  }
 };

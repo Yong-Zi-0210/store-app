@@ -1,0 +1,76 @@
+@use "./element-plus.scss";
+@use "./scrollbar.scss";
+
+html {
+  height: 100%;
+  overflow: auto;
+}
+
+body {
+  display: flex;
+  height: 100%;
+  margin: 0;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, Arial, sans-serif;
+}
+
+label {
+  font-weight: 700;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  min-height: 832px;
+  min-width: 1460px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+div:focus {
+  outline: none;
+}
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+// main-container global css
+.app-container {
+}
+.min-width {
+  width: 1200px;
+}

@@ -3,15 +3,15 @@ import router from "@/router";
 import "@/router/permission";
 import store from "./store";
 import App from "./App.vue";
-import "@/style/index.scss";
+import "normalize.css";
+import "element-plus/dist/index.css";
+import "element-plus/theme-chalk/dark/css-vars.css";
+import "@/styles/index.scss";
 import { loadSvg } from "@/icons";
-// import { loadPlugins } from "@/plugins";
 const app = createApp(App);
 
 /** 加载全局 SVG */
 loadSvg(app);
-// 注册插件
-// loadPlugins(app);
 
 app.use(router);
 app.use(store);

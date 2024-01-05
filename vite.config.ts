@@ -55,16 +55,9 @@ export default defineConfig({
     strictPort: false,
     /** 接口代理 */
     proxy: {
-      // 管理后台
-      "/manage-server": {
-        target: "http://122.51.54.57:8060",
-        ws: true,
-        /** 是否允许跨域 */
-        changeOrigin: true,
-      },
-      // 经销商后台
-      "/cardealer-server": {
-        target: "http://122.51.54.57:8061",
+      // 客户端
+      "/user-server": {
+        target: "http://122.51.54.57:8062",
         ws: true,
         /** 是否允许跨域 */
         changeOrigin: true,

@@ -2,10 +2,11 @@ import { request } from "@/utils/request";
 import type * as Login from "./types";
 
 /** 获取登录验证码 */
-export function getLoginCodeApi() {
+export function getLoginCodeApi(data: object) {
   return request<Login.LoginCodeResponseData>({
-    url: "login/code",
-    method: "get",
+    url: "getVerifyCode",
+    method: "post",
+    data,
   });
 }
 
