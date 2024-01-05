@@ -7,13 +7,8 @@
         <el-carousel :interval="3000" height="427px" indicator-position="none">
           <el-carousel-item v-for="item in coreRecData" :key="item.id">
             <div class="images">
-              <div
-                class="main-image"
-                @click="toDetail(item.main)"
-                :style="{
-                  backgroundImage: `url(${item.main.displayImage})`,
-                }"
-              >
+              <div class="main-image" @click="toDetail(item.main)">
+                <el-image fit="cover" :src="item.main.displayImage"></el-image>
                 <div class="name">{{ item.main.secondaryName }}</div>
               </div>
               <div class="other-image">
@@ -23,10 +18,8 @@
                     v-for="other in item.other"
                     :key="other.id"
                     @click="toDetail(other)"
-                    :style="{
-                      background: `url(${other.displayImage}) no-repeat center`,
-                    }"
                   >
+                    <el-image fit="cover" :src="other.displayImage"></el-image>
                     <div class="name">{{ other.secondaryName }}</div>
                   </li>
                 </ul>
@@ -44,10 +37,7 @@
             @click="toDetail(item)"
           >
             <div class="title">{{ item.secondaryName }}</div>
-            <div
-              class="image"
-              :style="{ backgroundImage: `url(${item.displayImage})` }"
-            />
+            <el-image class="image" fit="cover" :src="item.displayImage" lazy />
           </li>
         </ul>
       </div>
@@ -60,10 +50,7 @@
             :key="item.id"
             @click="toDetail(item)"
           >
-            <div
-              class="image"
-              :style="{ backgroundImage: `url(${item.displayImage})` }"
-            ></div>
+            <el-image class="image" fit="cover" :src="item.displayImage" lazy />
             <div class="name">{{ item.secondaryName }}</div>
           </li>
         </ul>
@@ -172,6 +159,10 @@ const toDetail = (item: any) => {
       background-repeat: no-repeat;
       background-size: cover;
       cursor: pointer;
+      :deep(.el-image) {
+        height: 100%;
+        width: 100%;
+      }
       .name {
         position: absolute;
         bottom: 0;
@@ -201,6 +192,10 @@ const toDetail = (item: any) => {
         overflow: hidden;
         background-size: cover;
         cursor: pointer;
+        :deep(.el-image) {
+          height: 100%;
+          width: 100%;
+        }
         .name {
           position: absolute;
           bottom: 0;
@@ -276,4 +271,3 @@ const toDetail = (item: any) => {
   }
 }
 </style>
-@/store/module/router

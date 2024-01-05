@@ -34,19 +34,23 @@
       <!-- 主推荐位 -->
       <div class="core-rec">
         <!-- <div class="seckill">秒杀</div> -->
-        <div
+        <el-image
           class="banner"
           @click="toDetail(imageData)"
-          :style="{ backgroundImage: `url(${imageData.displayImage})` }"
-        ></div>
+          fit="cover"
+          :src="imageData.displayImage"
+          lazy
+        ></el-image>
         <div class="other">
-          <div
+          <el-image
             class="other-item"
             v-for="(item, index) in otherIamge"
-            :style="{ backgroundImage: `url(${item.displayImage})` }"
             :key="index"
             @click="toDetail(imageData)"
-          />
+            :src="item.displayImage"
+            fit="cover"
+            lazy
+          ></el-image>
         </div>
         <div class="user">
           <div class="user-info">
@@ -101,8 +105,9 @@
           v-for="(item, index) in recData"
           :key="index"
           @click="toDetail(item)"
-          :style="{ backgroundImage: `url(${item.displayImage})` }"
-        ></li>
+        >
+          <el-image fit="cover" :src="item.displayImage" lazy></el-image>
+        </li>
       </ul>
       <div class="rights">
         <div class="title">
@@ -115,8 +120,9 @@
             v-for="(item, index) in rights"
             :key="index"
             @click="toDetail(item)"
-            :style="{ backgroundImage: `url(${item.displayImage})` }"
-          ></li>
+          >
+            <el-image fit="cover" :src="item.displayImage" lazy></el-image>
+          </li>
         </ul>
       </div>
     </div>
@@ -133,7 +139,7 @@ const loading = ref(false);
 const navList = ref([
   { name: "酒店出行", path: "hotel" },
   { name: "二手车", path: "usedCar" },
-  { name: "精选商品", path: "" },
+  { name: "精选商品", path: "quality" },
 ]);
 const recNavBarData = ref([
   { title: "为你推荐", value: "002" },
@@ -339,9 +345,6 @@ const toDetail = (item: any) => {
       height: 401px;
       margin: 0 10px 0 207px;
       border-radius: 8px;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
       cursor: pointer;
     }
     .other {
@@ -353,11 +356,12 @@ const toDetail = (item: any) => {
         height: 127px;
         margin-bottom: 10px;
         border-radius: 8px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
         overflow: hidden;
         cursor: pointer;
+        :deep(.el-image) {
+          width: 100%;
+          height: 100%;
+        }
       }
     }
     .user {
@@ -482,12 +486,13 @@ const toDetail = (item: any) => {
       width: 294px;
       height: 147px;
       margin: 0 8px 8px 0;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
       border-radius: 8px;
       overflow: hidden;
       cursor: pointer;
+      :deep(.el-image) {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
   .rights {
@@ -515,4 +520,3 @@ const toDetail = (item: any) => {
   }
 }
 </style>
-@/store/module/router

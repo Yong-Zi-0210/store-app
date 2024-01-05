@@ -66,10 +66,7 @@
           :key="item.id"
           @click="toDetail(item)"
         >
-          <div
-            class="image"
-            :style="{ backgroundImage: `url(${item.displayImage})` }"
-          ></div>
+          <el-image class="image" fit="cover" :src="item.displayImage" lazy />
           <div class="name">{{ item.name }}</div>
           <div class="year-mileage">
             <span class="year"
@@ -365,4 +362,3 @@ const handleCurrentChange = (value: number) => {
   align-items: center;
 }
 </style>
-@/store/module/router

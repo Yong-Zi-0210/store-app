@@ -9,10 +9,13 @@
     class="base-swiper"
   >
     <swiper-slide v-for="(url, index) in props.bannerList" :key="index">
-      <div
+      <el-image
         class="image-item"
+        :key="url"
+        fit="cover"
+        :src="url"
         @click="handleChange(url)"
-        :style="{ backgroundImage: `url(${url})` }"
+        lazy
       />
     </swiper-slide>
   </swiper>

@@ -83,7 +83,7 @@ const handleCommunicate = async () => {
       ...formData,
       ...props.info,
     });
-    ElMessage.success("操作成功");
+    ElMessage.success("预约成功");
   } catch (error) {}
 };
 </script>

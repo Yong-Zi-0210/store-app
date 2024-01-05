@@ -8,11 +8,12 @@
       <div class="info-item base">
         <div class="base-main">
           <div class="left">
-            <div
+            <el-image
               class="show-image"
-              :style="{
-                backgroundImage: `url(${showImage})`,
-              }"
+              :key="showImage"
+              fit="cover"
+              :src="showImage"
+              lazy
             />
             <div class="banner">
               <detail-swiper
@@ -48,7 +49,13 @@
           </div>
         </div>
         <div class="base-check">
-          <img v-for="url in checkImage" :src="url" alt="" />
+          <el-image
+            v-for="url in checkImage"
+            :src="url"
+            fit="cover"
+            :key="url"
+            lazy
+          />
         </div>
       </div>
       <!-- 车辆详情 -->
@@ -74,7 +81,7 @@
             :class="index > 3 ? 'small' : ''"
             :key="index"
           >
-            <img :src="url" />
+            <el-image :key="url" fit="cover" :src="url" lazy />
           </li>
         </ul>
       </div>
@@ -88,7 +95,7 @@
             :class="index > 3 ? 'small' : ''"
             :key="index"
           >
-            <img :src="url" />
+            <el-image fit="cover" :key="url" :src="url" lazy />
           </li>
         </ul>
       </div>
@@ -102,7 +109,7 @@
             :class="index > 3 ? 'small' : ''"
             :key="index"
           >
-            <img :src="url" />
+            <el-image fit="cover" :key="url" :src="url" lazy />
           </li>
         </ul>
       </div>
@@ -342,10 +349,8 @@ const setTableData = () => {
           margin-right: 42px;
           flex-shrink: 0;
           .show-image {
+            width: 100%;
             height: 372px;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
           }
           .banner {
             height: 70px;
@@ -440,10 +445,6 @@ const setTableData = () => {
         flex-direction: column;
         justify-content: center;
         overflow: hidden;
-        img {
-          width: 1122px;
-          height: 100%;
-        }
       }
     }
     .in-detail {
@@ -496,10 +497,9 @@ const setTableData = () => {
           height: 356px;
           margin: 0 18px 18px 0;
           overflow: hidden;
-          img {
+          :deep(.el-image) {
             width: 100%;
             height: 100%;
-            object-fit: cover;
           }
           &.small {
             width: 266px;
@@ -583,4 +583,3 @@ const setTableData = () => {
   }
 }
 </style>
-@/store/module/router
