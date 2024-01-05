@@ -42,7 +42,7 @@ const setVSwiperRef = (swiper: SwiperClass) => {
 const prevVSwiperSlide = () => vSwiperRef?.slidePrev();
 const nextVSwiperSlide = () => vSwiperRef?.slideNext();
 
-const handleChange = (url) => emit("change", url);
+const handleChange = (url: string) => emit("change", url);
 </script>
 <style scoped lang="scss">
 .arrow-left,
