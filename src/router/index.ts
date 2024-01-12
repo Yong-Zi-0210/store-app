@@ -79,6 +79,49 @@ const routers: RouteRecordRaw[] = [
           title: "精品",
         },
       },
+      {
+        path: "recruitment",
+        component: () => import("@/components/RouterView/index.vue"),
+        name: "Recruitment",
+        redirect: "recruitment/recruitmentRec",
+        meta: {
+          title: "招聘",
+        },
+        children: [
+          {
+            path: "recruitmentRec",
+            component: () => import("@/views/recruitment/index.vue"),
+            name: "RecruitmentRec",
+            meta: {
+              title: "招聘推荐",
+            },
+          },
+          {
+            path: "recruitmentSearch",
+            component: () => import("@/views/recruitment/search.vue"),
+            name: "RecruitmentSearch",
+            meta: {
+              title: "招聘搜索",
+            },
+          },
+          {
+            path: "job",
+            component: () => import("@/views/recruitment/job.vue"),
+            name: "Job",
+            meta: {
+              title: "职位详情",
+            },
+          },
+          {
+            path: "company",
+            component: () => import("@/views/recruitment/company/index.vue"),
+            name: "Company",
+            meta: {
+              title: "公司详情",
+            },
+          },
+        ],
+      },
     ],
   },
 ];

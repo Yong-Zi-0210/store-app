@@ -12,7 +12,7 @@
               class="list-item"
               v-for="(item, index) in goodList"
               :key="index"
-              @click="toDetail(item)"
+              @click="jumpDetail(item)"
             >
               {{ item.name }}
             </li>
@@ -36,7 +36,7 @@
         <!-- <div class="seckill">秒杀</div> -->
         <el-image
           class="banner"
-          @click="toDetail(imageData)"
+          @click="jumpDetail(imageData)"
           fit="cover"
           :src="imageData.displayImage"
           lazy
@@ -46,7 +46,7 @@
             class="other-item"
             v-for="(item, index) in otherIamge"
             :key="index"
-            @click="toDetail(imageData)"
+            @click="jumpDetail(imageData)"
             :src="item.displayImage"
             fit="cover"
             lazy
@@ -104,7 +104,7 @@
           class="goods-item"
           v-for="(item, index) in recData"
           :key="index"
-          @click="toDetail(item)"
+          @click="jumpDetail(item)"
         >
           <el-image fit="cover" :src="item.displayImage" lazy></el-image>
         </li>
@@ -119,7 +119,7 @@
             class="goods-item"
             v-for="(item, index) in rights"
             :key="index"
-            @click="toDetail(item)"
+            @click="jumpDetail(item)"
           >
             <el-image fit="cover" :src="item.displayImage" lazy></el-image>
           </li>
@@ -131,10 +131,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { coreRec } from "@/api/home";
-import useRouterStore from "@/store/module/router";
+import { coreRec } from "@/api/common";
 import useUserStore from "@/store/module/user";
+import { useJump } from "@/hooks/jump";
 
+const jumpDetail = useJump();
 const loading = ref(false);
 const navList = ref([
   { name: "酒店出行", path: "hotel" },
@@ -221,47 +222,6 @@ const getAllRecData = async () => {
   }
 };
 getAllRecData();
-
-/**
- * 跳转详情页
- * |productType|001|二手车|
- * |productType|002|招聘|
- * |productType|003|商城|
- * |productType|004|酒店|
- */
-const paramsStore = useRouterStore();
-const toDetail = (item: any) => {
-  const { productType } = item;
-  switch (productType) {
-    //车辆详情
-    case "001": {
-      paramsStore.setCarDetail(item);
-      router.push("/usedCar/detail");
-      break;
-    }
-    // 精品详情
-    case "002": {
-      paramsStore.setCarDetail(item);
-      router.push("/quality/detail");
-      break;
-    }
-    // 商品详情
-    case "003": {
-      paramsStore.setProductDetail(item);
-      router.push("/product/detail");
-      break;
-    }
-    // 酒店详情
-    case "004": {
-      paramsStore.setHotelDetail(item);
-      router.push("/hotel/detail");
-      break;
-    }
-    default: {
-      throw new Error("商品类型不存在");
-    }
-  }
-};
 </script>
 <style lang="scss" scoped>
 .home {
@@ -496,7 +456,7 @@ const toDetail = (item: any) => {
     }
   }
   .rights {
-    margin: 39px 0 54px 0;
+    margin: 49px 0 54px 0;
   }
   .title {
     position: relative;

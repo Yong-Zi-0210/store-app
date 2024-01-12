@@ -7,7 +7,7 @@
         <el-carousel :interval="3000" height="427px" indicator-position="none">
           <el-carousel-item v-for="item in coreRecData" :key="item.id">
             <div class="images">
-              <div class="main-image" @click="toDetail(item.main)">
+              <div class="main-image" @click="jumpDetail(item.main)">
                 <el-image fit="cover" :src="item.main.displayImage"></el-image>
                 <div class="name">{{ item.main.secondaryName }}</div>
               </div>
@@ -17,7 +17,7 @@
                     class="other-item"
                     v-for="other in item.other"
                     :key="other.id"
-                    @click="toDetail(other)"
+                    @click="jumpDetail(other)"
                   >
                     <el-image fit="cover" :src="other.displayImage"></el-image>
                     <div class="name">{{ other.secondaryName }}</div>
@@ -34,7 +34,7 @@
             class="rec-item"
             v-for="item in firstRecData"
             :key="item.id"
-            @click="toDetail(item)"
+            @click="jumpDetail(item)"
           >
             <div class="title">{{ item.secondaryName }}</div>
             <el-image class="image" fit="cover" :src="item.displayImage" lazy />
@@ -48,7 +48,7 @@
             class="rec-item"
             v-for="item in recData"
             :key="item.id"
-            @click="toDetail(item)"
+            @click="jumpDetail(item)"
           >
             <el-image class="image" fit="cover" :src="item.displayImage" lazy />
             <div class="name">{{ item.secondaryName }}</div>
@@ -60,11 +60,14 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-import { coreRec } from "@/api/home";
+import { coreRec } from "@/api/common";
 import { useRouter } from "vue-router";
 import useRouterStore from "@/store/module/router";
+import { useJump } from "@/hooks/jump";
 
+const jumpDetail = useJump();
 const loading = ref(false);
+const router = useRouter();
 const paramsStore = useRouterStore();
 const coreRecData = ref<any>([]); // 主推
 const firstRecData = ref<any>([]); // 首推
@@ -113,19 +116,12 @@ const setBannerData = (list: Array<any>) => {
   return newArr;
 };
 
-const router = useRouter();
 /** 跳转搜索页 */
 const toSearchCar = (value: string) => {
   paramsStore.setSearchValue(value);
   router.push({
     name: "Search",
   });
-};
-
-/** 跳转详情页 */
-const toDetail = (item: any) => {
-  paramsStore.setCarDetail(item);
-  router.push("detail");
 };
 </script>
 <style lang="scss" scoped>

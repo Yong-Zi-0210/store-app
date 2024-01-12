@@ -64,7 +64,7 @@
           class="result-item"
           v-for="item in searchData"
           :key="item.id"
-          @click="toDetail(item)"
+          @click="jumpDetail(item)"
         >
           <el-image class="image" fit="cover" :src="item.displayImage" lazy />
           <div class="name">{{ item.name }}</div>
@@ -100,14 +100,14 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive, onMounted } from "vue";
-import { useRouter } from "vue-router";
 import { brand } from "@/api/usedCar";
 import { carList } from "@/api/usedCar";
 import useRouterStore from "@/store/module/router";
+import { useRouter } from "vue-router";
 import { formatDateTime, setMileage, setPrice } from "@/utils";
 
-const router = useRouter();
 const loading = ref(false);
+const router = useRouter();
 const paramsStore = useRouterStore();
 const activeGroup = ref("A"); // 当前品牌组
 const brands = ref<any>({}); // 品牌
@@ -204,18 +204,6 @@ const resetFilter = () => {
   getList();
 };
 
-/**
- * 跳转详情页
- * |productType|001|二手车|
- * |productType|002|招聘|
- * |productType|003|商城|
- * |productType|004|酒店|
- */
-const toDetail = (item: any) => {
-  paramsStore.setCarDetail(item);
-  router.push("detail");
-};
-
 /** 修改每页数量 */
 const handleSizeChange = (value: number) => {
   searchPage.pageSize = value;
@@ -226,6 +214,11 @@ const handleSizeChange = (value: number) => {
 const handleCurrentChange = (value: number) => {
   searchPage.currentPage = value;
   getList();
+};
+
+const jumpDetail = (item: any) => {
+  paramsStore.setCarDetail(item);
+  router.push("detail");
 };
 </script>
 <style lang="scss" scoped>
