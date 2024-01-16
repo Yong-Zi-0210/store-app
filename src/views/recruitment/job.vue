@@ -75,7 +75,7 @@
 import { computed, ref } from "vue";
 import { Location, Suitcase, User } from "@element-plus/icons-vue";
 import useRouterStore from "@/store/module/router";
-import { jobDetail, companyDetail } from "@/api/job";
+import { jobDetail, companyDetail } from "@/api";
 
 const paramsStore = useRouterStore();
 const jobData = ref<any>({});

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { loginApi, logoutApi } from "@/api/user";
+import { loginApi, logoutApi } from "@/api";
 import store from "@/store";
 import { type LoginRequestData } from "@/api/user/types";
 import { removeToken, setToken } from "@/utils/cache/cookies";

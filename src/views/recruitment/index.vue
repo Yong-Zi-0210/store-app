@@ -11,11 +11,11 @@
           :src="coreRecImage.displayImage"
           lazy
         ></el-image>
-        <div class="hot-quality">
+        <div class="hot-goods">
           <div class="title">精选热点</div>
-          <ul class="quality-list">
+          <ul class="goods-list">
             <li
-              class="quality-item"
+              class="goods-item"
               v-for="(item, index) in hotQuality"
               :key="index"
               :title="item.name"
@@ -55,8 +55,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import useRouterStore from "@/store/module/router";
-import { coreRec } from "@/api/common";
-import { hotJob, hotUnit } from "@/api/job";
+import { hotJob, hotUnit, coreRec } from "@/api";
 import { useJump } from "@/hooks/jump";
 
 const jumpDetail = useJump();
@@ -167,7 +166,7 @@ getRecData();
       box-sizing: border-box;
       cursor: pointer;
     }
-    .hot-quality {
+    .hot-goods {
       width: 294px;
       height: 402px;
       box-sizing: border-box;
@@ -184,13 +183,13 @@ getRecData();
         border-radius: 21px;
         text-align: center;
       }
-      .quality-list {
+      .goods-list {
         display: flex;
         flex-wrap: wrap;
         padding: 7px 23px 26px 24px;
         margin-right: -27px;
         box-sizing: border-box;
-        .quality-item {
+        .goods-item {
           width: 110px;
           height: 35px;
           overflow: hidden;

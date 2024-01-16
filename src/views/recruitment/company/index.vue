@@ -50,7 +50,7 @@
 </template>
 <script setup lang="ts">
 import { computed, reactive, ref } from "vue";
-import { companyDetail, getJobById } from "@/api/job";
+import { companyDetail, getJobById } from "@/api";
 import useRouterStore from "@/store/module/router";
 
 const paramsStore = useRouterStore();

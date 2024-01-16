@@ -17,7 +17,7 @@
 </template>
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { getJobById } from "@/api/job";
+import { getJobById } from "@/api";
 import useRouterStore from "@/store/module/router";
 
 const paramsStore = useRouterStore();

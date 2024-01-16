@@ -44,7 +44,7 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive, onMounted } from "vue";
-import { searchList } from "@/api/job";
+import { searchList } from "@/api";
 import useRouterStore from "@/store/module/router";
 
 const loading = ref(false);

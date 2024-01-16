@@ -2,8 +2,27 @@
   <div class="app-header">
     <div class="main min-width">
       <div class="location">
-        <i class="icon"></i>
-        <span>{{ location.address }}</span>
+        <el-dropdown
+          ref="addressRef"
+          popper-class="address-popper"
+          trigger="contextmenu"
+          @command="handleCommand"
+          style="margin-right: 30px"
+        >
+          <div class="el-dropdown-link" @click="showDown(addressRef)">
+            <i class="icon"></i>
+          </div>
+          <template #dropdown>
+            <el-dropdown-item
+              v-for="(item, index) in address"
+              :command="item"
+              :key="index"
+            >
+              {{ item }}
+            </el-dropdown-item>
+          </template>
+        </el-dropdown>
+        <span class="address">{{ location }}</span>
       </div>
       <ul class="actions" v-if="userInfo.id">
         <li class="action-item user">{{ "亲爱的" + userInfo.username }}</li>
@@ -69,19 +88,39 @@ import { storeToRefs } from "pinia";
 
 // const serviceRef = ref();
 // const moreRef = ref();
+const addressRef = ref();
 const router = useRouter();
 const userStore = useUserStore();
-const location = ref({
-  address: "上海",
-});
-
+const address = ["上海", "苏州", "杭州", "南京"];
+const location = ref("上海");
 const { userInfo } = storeToRefs(userStore);
 
+// onMounted(() => {
+//   if ("geolocation" in navigator) {
+//     navigator.geolocation.getCurrentPosition(
+//       function (position) {
+//         var latitude = position.coords.latitude;
+//         var longitude = position.coords.longitude;
+//         console.log(position)
+//         console.log("纬度：", latitude);
+//         console.log("经度：", longitude);
+//       },
+//       function (error) {
+//         console.log("获取位置失败：", error.message);
+//       }
+//     );
+//   } else {
+//     console.log("不支持 Geolocation");
+//   }
+// });
+
+const handleCommand = (address: string) => (location.value = address);
+
 /** 下拉菜单 */
-// const showDown = (ref: any) => {
-//   if (!ref) return;
-//   ref.handleOpen();
-// };
+const showDown = (ref: any) => {
+  if (!ref) return;
+  ref.handleOpen();
+};
 
 /** 登录 */
 const login = () => router.push("/login");
@@ -110,10 +149,20 @@ const logout = () => {
       display: flex;
       align-items: center;
       width: 120px;
+      .address {
+        margin-left: 6px;
+      }
+      .el-dropdown-link {
+        display: flex;
+      }
+      :deep(.el-dropdown) {
+        margin-right: 0 !important;
+      }
       .icon {
+        display: inline-block;
         width: 20px;
         height: 20px;
-        margin-right: 6px;
+        cursor: pointer;
         background: url("@/assets/images/location.png") no-repeat center;
         background-size: cover;
       }
@@ -157,6 +206,25 @@ const logout = () => {
         font-size: 14px;
         color: #333333;
       }
+    }
+  }
+}
+.address-popper {
+  overflow: hidden;
+  .el-check-tag {
+    &.is-checked {
+      background-color: #e20755;
+      color: #ffffff;
+    }
+  }
+  .address-list {
+    width: 118px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 10px;
+    .address-item {
+      margin: 0 5px 5px 0;
     }
   }
 }

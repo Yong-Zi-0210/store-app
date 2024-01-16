@@ -5,6 +5,7 @@
       <component :is="Component" :key="route.path" />
       <!-- </transition> -->
     </router-view>
+    <el-backtop :right="50" :bottom="100" />
   </section>
 </template>
 <style lang="scss" scoped>

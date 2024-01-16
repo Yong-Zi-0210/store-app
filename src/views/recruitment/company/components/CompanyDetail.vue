@@ -27,9 +27,11 @@
   <div class="slider">
     <div class="company-info">
       <div class="title">工作时间及福利</div>
-      <p class="info-item">
-        <el-icon><Clock /></el-icon>
-        <span>{{ props.companyData.workTime }}</span>
+      <p class="info-item work-time">
+        <el-icon style="margin-right: 5px; color: #999"><Clock /></el-icon>
+        <span style="font-size: 14px; color: #999">{{
+          props.companyData.workTime
+        }}</span>
       </p>
       <p class="info-item">
         <Welfare :tags="props.companyData.welfareTreatment" />
@@ -200,6 +202,9 @@ const jumpDetail = (item: any) => {
       margin-bottom: 8px;
       .svg-icon {
         margin-right: 8px;
+      }
+      &.work-time {
+        flex-direction: row;
       }
       &:last-of-type {
         margin-bottom: 0;

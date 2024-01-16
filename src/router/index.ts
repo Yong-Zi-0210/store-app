@@ -72,12 +72,31 @@ const routers: RouteRecordRaw[] = [
         ],
       },
       {
-        path: "quality",
-        component: () => import("@/views/quality/index.vue"),
-        name: "Quality",
+        path: "goods",
+        component: () => import("@/components/RouterView/index.vue"),
+        name: "Goods",
+        redirect: "goods/goodsSearch",
         meta: {
-          title: "精品",
+          title: "商品",
         },
+        children: [
+          {
+            path: "goodsSearch",
+            component: () => import("@/views/goods/index.vue"),
+            name: "GoodsSearch",
+            meta: {
+              title: "商品列表",
+            },
+          },
+          {
+            path: "goodsDetail",
+            component: () => import("@/views/goods/goodsDetail/index.vue"),
+            name: "GoodsDetail",
+            meta: {
+              title: "商品详情",
+            },
+          },
+        ],
       },
       {
         path: "recruitment",

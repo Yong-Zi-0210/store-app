@@ -17,25 +17,25 @@ export function useJump() {
       // 招聘企业详情
       case "002": {
         paramsStore.setCompanyDetail(item);
-        router.push("/recruitment/company");
+        router.push("company");
         break;
       }
       // 精品、商品详情
       case "003": {
         paramsStore.setProductDetail(item);
-        router.push("/quality/detail");
+        router.push("goodsDetail");
         break;
       }
       // 酒店详情
       case "004": {
         paramsStore.setHotelDetail(item);
-        router.push("/hotel/detail");
+        router.push("hotelDetail");
         break;
       }
       // 招聘职位详情
       case "005": {
         paramsStore.setJobDetail(item);
-        router.push("/hotel/position");
+        router.push("position");
         break;
       }
       default: {

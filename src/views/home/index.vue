@@ -131,7 +131,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { coreRec } from "@/api/common";
+import { coreRec } from "@/api";
 import useUserStore from "@/store/module/user";
 import { useJump } from "@/hooks/jump";
 
@@ -140,7 +140,7 @@ const loading = ref(false);
 const navList = ref([
   { name: "酒店出行", path: "hotel" },
   { name: "二手车", path: "usedCar" },
-  { name: "精选商品", path: "quality" },
+  { name: "精选商品", path: "goods" },
 ]);
 const recNavBarData = ref([
   { title: "为你推荐", value: "002" },

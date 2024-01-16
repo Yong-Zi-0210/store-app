@@ -34,7 +34,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { communicate } from "@/api/usedCar";
+import { communicate } from "@/api";
 import { ElMessage, FormInstance, FormRules } from "element-plus";
 import { ref, reactive } from "vue";
 

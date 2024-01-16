@@ -100,8 +100,7 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive, onMounted } from "vue";
-import { brand } from "@/api/usedCar";
-import { carList } from "@/api/usedCar";
+import { carList, brand } from "@/api";
 import useRouterStore from "@/store/module/router";
 import { useRouter } from "vue-router";
 import { formatDateTime, setMileage, setPrice } from "@/utils";

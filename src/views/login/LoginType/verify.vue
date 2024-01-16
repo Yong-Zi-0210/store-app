@@ -28,7 +28,7 @@
 import { FormInstance, FormRules } from "element-plus";
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
-import { getLoginCodeApi } from "@/api/user";
+import { getLoginCodeApi } from "@/api";
 import { VerifyCodeLogin } from "../types";
 import useUserStore from "@/store/module/user";
 import useRouterStore from "@/store/module/router";

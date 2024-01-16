@@ -155,7 +155,7 @@
 <script setup lang="ts">
 import { onMounted, watch, ref, computed, reactive } from "vue";
 import { useRouter } from "vue-router";
-import { detail } from "@/api/usedCar";
+import { detail } from "@/api";
 import useSettingStore from "@/store/module/setting";
 import useRouterStore from "@/store/module/router";
 import { setMileage, setPrice, formatDateTime } from "@/utils";

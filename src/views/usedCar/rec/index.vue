@@ -60,7 +60,7 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-import { coreRec } from "@/api/common";
+import { coreRec } from "@/api";
 import { useRouter } from "vue-router";
 import useRouterStore from "@/store/module/router";
 import { useJump } from "@/hooks/jump";
