@@ -192,7 +192,7 @@ const getList = async () => {
       ...pageParams,
       condition: {
         keywords: searchValue.value,
-        brandId: brandId.value,
+        brandIds: brandId.value,
         categoryId: lastCategoryId.value,
       },
     });
