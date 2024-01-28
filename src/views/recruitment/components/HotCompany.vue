@@ -53,7 +53,10 @@ const props = withDefaults(defineProps<Props>(), {
 
 /** 跳转详情页 */
 const jumpDetail = (item: any) => {
-  paramsStore.setCompanyDetail(item);
+  paramsStore.setCompanyDetail({
+    companyId: item.companyId,
+    positionId: item.positionId,
+  });
   const routeUrl = router.resolve({
     path: "company",
   });

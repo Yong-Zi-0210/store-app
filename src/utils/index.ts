@@ -59,3 +59,10 @@ export const setPrice = (price: number) => {
     return `${newPrice}万`;
   }
 };
+
+export function compareArrays(arr1: string[], arr2: string[]) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+  return arr2.every((item) => arr1.indexOf(item) !== -1);
+}

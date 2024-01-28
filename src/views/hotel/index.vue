@@ -39,7 +39,6 @@ const loading = ref(false);
 const coreRecImage = ref<any>({}); // 主推位图片
 const hotResort = ref(); // 热门度假村
 const recHotel = ref(); // 推荐酒店
-const activeJob = ref(0);
 
 /** 搜索 */
 const toSearchCar = (value: string) => {

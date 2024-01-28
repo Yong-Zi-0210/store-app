@@ -38,7 +38,6 @@ function createService() {
         case "999403":
           // Token 过期时
           ElMessage.error("登录状态已过期");
-          debugger;
           logout();
           return Promise.reject(new Error("登录状态已过期"));
         default:

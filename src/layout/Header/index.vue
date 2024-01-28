@@ -25,7 +25,9 @@
         <span class="address">{{ location }}</span>
       </div>
       <ul class="actions" v-if="userInfo.id">
-        <li class="action-item user">{{ "亲爱的" + userInfo.username }}</li>
+        <li class="action-item user" @click="userCenter">
+          {{ "亲爱的" + userInfo.username }}
+        </li>
         <!-- <li class="action-item service">我的收藏</li> -->
         <!-- <li class="action-item">
           <el-dropdown
@@ -82,7 +84,7 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import useUserStore from "@/store/module/user";
 import { storeToRefs } from "pinia";
 
@@ -90,6 +92,7 @@ import { storeToRefs } from "pinia";
 // const moreRef = ref();
 const addressRef = ref();
 const router = useRouter();
+const currentRoute = useRoute();
 const userStore = useUserStore();
 const address = ["上海", "苏州", "杭州", "南京"];
 const location = ref("上海");
@@ -113,6 +116,14 @@ const { userInfo } = storeToRefs(userStore);
 //     console.log("不支持 Geolocation");
 //   }
 // });
+/** 用户中心 */
+const userCenter = () => {
+  if (currentRoute.fullPath.indexOf("userSetting") > -1) return;
+  const route = router.resolve({
+    path: "/userSetting",
+  });
+  window.open(route.href, "_blank");
+};
 
 const handleCommand = (address: string) => (location.value = address);
 
@@ -183,6 +194,9 @@ const logout = () => {
         align-items: center;
         margin-right: 22px;
         cursor: pointer;
+        &.user:hover {
+          color: #e20755;
+        }
         .login-btn {
           margin-left: 5px;
           color: #e20755;

@@ -8,3 +8,12 @@ export function coreRec(data: object) {
     data,
   });
 }
+
+// 收货地址列表
+
+export function addressList() {
+  return request<ApiResponseData<any>>({
+    url: "user/getAllReceiveAddresses",
+    method: "post",
+  });
+}

@@ -26,3 +26,21 @@ export function goodsList(data: object) {
     data,
   });
 }
+
+// 商品详情
+export function getGoodsDetail(data: object) {
+  return request<ApiResponseData<any>>({
+    url: "goods/getGoodsDetail",
+    method: "post",
+    data,
+  });
+}
+
+// 兑换商品
+export function goodsExchange(data: object) {
+  return request<ApiResponseData<any>>({
+    url: "goods/operate/createGoodsOrder",
+    method: "post",
+    data,
+  });
+}

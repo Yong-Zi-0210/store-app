@@ -1,12 +1,7 @@
 <template>
   <div class="search-result">
     <ul class="goods-list" v-if="props.dataList">
-      <li
-        class="goods-item"
-        v-for="item in props.dataList"
-        :key="item.id"
-        @click="jumpDetail(item)"
-      >
+      <li class="goods-item" v-for="item in props.dataList" :key="item.id">
         <el-image :src="item.displayImage" fit="cover"></el-image>
         <div class="price">
           ¥<span>{{ item.price }}</span>
@@ -15,7 +10,7 @@
           {{ item.goodsTitle }}
         </div>
         <div class="name">{{ item.goodsName }}</div>
-        <div class="btn">兑换</div>
+        <div class="btn" @click="jumpDetail(item.id)">兑换</div>
       </li>
     </ul>
     <div v-else class="no-data">暂无商品</div>
@@ -34,9 +29,9 @@ const props = withDefaults(defineProps<Props>(), {
   dataList: () => [],
 });
 
-const jumpDetail = (item: any) => {
-  paramsStore.setCarDetail(item);
-  router.push("detail");
+const jumpDetail = (id: string) => {
+  paramsStore.setGoodsDetail({ id });
+  router.push("goodsDetail");
 };
 </script>
 <style lang="scss" scoped>
@@ -54,7 +49,6 @@ const jumpDetail = (item: any) => {
       width: 220px;
       margin: 0 25px 36px 0;
       box-sizing: border-box;
-      cursor: pointer;
       :deep(.el-image) {
         width: 100%;
         height: 220px;
@@ -90,6 +84,7 @@ const jumpDetail = (item: any) => {
         background: #e20755;
         border-radius: 2px;
         color: #fff;
+        cursor: pointer;
       }
     }
   }

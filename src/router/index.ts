@@ -13,6 +13,7 @@ const routers: RouteRecordRaw[] = [
     component: () => import("@/views/login/index.vue"),
     meta: {
       hidden: true,
+      noLogin: true,
     },
   },
   {
@@ -25,14 +26,52 @@ const routers: RouteRecordRaw[] = [
         component: () => import("@/views/home/index.vue"),
         name: "Home",
         meta: {
+          noLogin: true,
           title: "首页",
         },
+      },
+      {
+        path: "userSetting",
+        component: () => import("@/views/userSetting/index.vue"),
+        name: "UserSetting",
+        redirect: "/userSetting/baseInfo",
+        meta: {
+          title: "用户中心",
+        },
+        children: [
+          {
+            path: "baseInfo",
+            component: () => import("@/views/userSetting/baseInfo.vue"),
+            name: "BaseInfo",
+            meta: {
+              title: "基本信息",
+            },
+          },
+          {
+            path: "addrssManage",
+            component: () =>
+              import("@/views/userSetting/addressManage/index.vue"),
+            name: "AddrssManage",
+            meta: {
+              title: "地址管理",
+            },
+          },
+          {
+            path: "order",
+            component: () => import("@/views/userSetting/order/index.vue"),
+            name: "Order",
+            meta: {
+              title: "我的订单",
+            },
+          },
+        ],
       },
       {
         path: "hotel",
         component: () => import("@/views/hotel/index.vue"),
         name: "Hotel",
         meta: {
+          noLogin: true,
           title: "酒店",
         },
       },
@@ -42,6 +81,7 @@ const routers: RouteRecordRaw[] = [
         name: "usedCar",
         redirect: "/usedcar/rec",
         meta: {
+          noLogin: true,
           title: "二手车",
         },
         children: [
@@ -50,6 +90,7 @@ const routers: RouteRecordRaw[] = [
             component: () => import("@/views/usedCar/rec/index.vue"),
             name: "Rec",
             meta: {
+              noLogin: true,
               title: "推荐",
             },
           },
@@ -58,6 +99,7 @@ const routers: RouteRecordRaw[] = [
             component: () => import("@/views/usedCar/search/index.vue"),
             name: "Search",
             meta: {
+              noLogin: true,
               title: "搜索",
             },
           },
@@ -66,6 +108,7 @@ const routers: RouteRecordRaw[] = [
             component: () => import("@/views/usedCar/detail/index.vue"),
             name: "Detail",
             meta: {
+              noLogin: true,
               title: "详情",
             },
           },
@@ -75,8 +118,9 @@ const routers: RouteRecordRaw[] = [
         path: "goods",
         component: () => import("@/components/RouterView/index.vue"),
         name: "Goods",
-        redirect: "goods/goodsSearch",
+        redirect: "/goods/goodsSearch",
         meta: {
+          noLogin: true,
           title: "商品",
         },
         children: [
@@ -86,6 +130,7 @@ const routers: RouteRecordRaw[] = [
             name: "GoodsSearch",
             meta: {
               title: "商品列表",
+              noLogin: true,
             },
           },
           {
@@ -94,6 +139,7 @@ const routers: RouteRecordRaw[] = [
             name: "GoodsDetail",
             meta: {
               title: "商品详情",
+              noLogin: true,
             },
           },
         ],
@@ -102,9 +148,10 @@ const routers: RouteRecordRaw[] = [
         path: "recruitment",
         component: () => import("@/components/RouterView/index.vue"),
         name: "Recruitment",
-        redirect: "recruitment/recruitmentRec",
+        redirect: "/recruitment/recruitmentRec",
         meta: {
           title: "招聘",
+          noLogin: true,
         },
         children: [
           {
@@ -113,6 +160,7 @@ const routers: RouteRecordRaw[] = [
             name: "RecruitmentRec",
             meta: {
               title: "招聘推荐",
+              noLogin: true,
             },
           },
           {
@@ -121,6 +169,7 @@ const routers: RouteRecordRaw[] = [
             name: "RecruitmentSearch",
             meta: {
               title: "招聘搜索",
+              noLogin: true,
             },
           },
           {
@@ -129,6 +178,7 @@ const routers: RouteRecordRaw[] = [
             name: "Job",
             meta: {
               title: "职位详情",
+              noLogin: true,
             },
           },
           {
@@ -137,6 +187,7 @@ const routers: RouteRecordRaw[] = [
             name: "Company",
             meta: {
               title: "公司详情",
+              noLogin: true,
             },
           },
         ],

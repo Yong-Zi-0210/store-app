@@ -4,7 +4,6 @@
       class="goods-item"
       v-for="item in props.goodsList"
       :key="item.productId"
-      @click="jumpDetail(item)"
     >
       <el-image :src="item.displayImage" fit="cover"></el-image>
       <div class="price">
@@ -14,7 +13,7 @@
       <div class="description" :title="item.description">
         {{ item.description }}
       </div>
-      <div class="btn">兑换</div>
+      <div class="btn" @click="jumpDetail(item)">兑换</div>
     </li>
   </ul>
 </template>
@@ -40,7 +39,6 @@ const props = withDefaults(defineProps<Props>(), {
     width: 184px;
     margin: 0 17px 36px 0;
     box-sizing: border-box;
-    cursor: pointer;
     :deep(.el-image) {
       width: 100%;
       height: 184px;
@@ -74,6 +72,7 @@ const props = withDefaults(defineProps<Props>(), {
       background: #e20755;
       border-radius: 2px;
       color: #fff;
+      cursor: pointer;
     }
   }
 }

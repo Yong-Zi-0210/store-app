@@ -1,21 +1,26 @@
 <template>
-  <el-breadcrumb class="app-breadcrumb" :separator-icon="ArrowRight">
-    <transition-group name="breadcrumb">
-      <el-breadcrumb-item :to="{ path: '/' }" key="home"
-        >首页</el-breadcrumb-item
-      >
-      <el-breadcrumb-item v-for="(item, index) in breadcrumbs" :key="item.path">
-        <span
-          v-if="
-            item.redirect === 'noRedirect' || index == breadcrumbs.length - 1
-          "
-          class="no-redirect"
-          >{{ item.meta.title }}</span
+  <div class="app-breadcrumb">
+    <el-breadcrumb :separator-icon="ArrowRight">
+      <transition-group name="breadcrumb">
+        <el-breadcrumb-item :to="{ path: '/' }" key="home"
+          >首页</el-breadcrumb-item
         >
-        <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
-      </el-breadcrumb-item>
-    </transition-group>
-  </el-breadcrumb>
+        <el-breadcrumb-item
+          v-for="(item, index) in breadcrumbs"
+          :key="item.path"
+        >
+          <span
+            v-if="
+              item.redirect === 'noRedirect' || index == breadcrumbs.length - 1
+            "
+            class="no-redirect"
+            >{{ item.meta.title }}</span
+          >
+          <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
+        </el-breadcrumb-item>
+      </transition-group>
+    </el-breadcrumb>
+  </div>
 </template>
 <script setup lang="ts">
 import { type RouteLocationMatched, useRoute, useRouter } from "vue-router";
@@ -58,3 +63,25 @@ watch(
   { immediate: true, deep: true }
 );
 </script>
+<style lang="scss" scoped>
+.app-breadcrumb {
+  :deep(.el-breadcrumb) {
+    height: 20px;
+    line-height: 20px;
+    margin-bottom: 8px;
+  }
+  :deep(.el-breadcrumb__item) {
+    .el-breadcrumb__inner {
+      color: #e20755;
+      a {
+        color: #e20755;
+      }
+    }
+    &:last-of-type {
+      .el-breadcrumb__inner {
+        color: #333;
+      }
+    }
+  }
+}
+</style>

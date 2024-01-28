@@ -55,7 +55,10 @@ const setKeyword = (keywords: string) => {
 };
 
 const jumpDetail = (item: any) => {
-  paramsStore.setJobDetail(item);
+  paramsStore.setJobDetail({
+    companyId: item.companyId,
+    positionId: item.positionId,
+  });
   const routeUrl = router.resolve({
     path: "job",
   });

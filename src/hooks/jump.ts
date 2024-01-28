@@ -10,31 +10,31 @@ export function useJump() {
     switch (productType) {
       //车辆详情
       case "001": {
-        paramsStore.setCarDetail(item);
+        paramsStore.setCarDetail({ id: item.productId });
         router.push("/usedCar/detail");
         break;
       }
       // 招聘企业详情
       case "002": {
-        paramsStore.setCompanyDetail(item);
+        paramsStore.setCompanyDetail({ companyId: item.productId });
         router.push("company");
         break;
       }
       // 精品、商品详情
       case "003": {
-        paramsStore.setProductDetail(item);
+        paramsStore.setGoodsDetail({ id: item.productId });
         router.push("goodsDetail");
         break;
       }
       // 酒店详情
       case "004": {
-        paramsStore.setHotelDetail(item);
+        paramsStore.setHotelDetail({ id: item.productId });
         router.push("hotelDetail");
         break;
       }
       // 招聘职位详情
       case "005": {
-        paramsStore.setJobDetail(item);
+        paramsStore.setJobDetail({ positionId: item.productId });
         router.push("position");
         break;
       }

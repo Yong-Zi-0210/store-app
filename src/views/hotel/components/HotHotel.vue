@@ -26,12 +26,7 @@ const jumpDetail = useJump();
 interface Props {
   data: any[];
 }
-const obj = {
-  name: "上海迪士尼乐园酒店",
-  price: "1554",
-};
 
-const arr = new Array(4).fill(obj);
 const props = withDefaults(defineProps<Props>(), {
   data: () => [],
 });

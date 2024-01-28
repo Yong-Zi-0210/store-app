@@ -64,7 +64,7 @@
           class="result-item"
           v-for="item in searchData"
           :key="item.id"
-          @click="jumpDetail(item)"
+          @click="jumpDetail(item.id)"
         >
           <el-image class="image" fit="cover" :src="item.displayImage" lazy />
           <div class="name">{{ item.name }}</div>
@@ -215,8 +215,8 @@ const handleCurrentChange = (value: number) => {
   getList();
 };
 
-const jumpDetail = (item: any) => {
-  paramsStore.setCarDetail(item);
+const jumpDetail = (id: string) => {
+  paramsStore.setCarDetail({ id });
   router.push("detail");
 };
 </script>

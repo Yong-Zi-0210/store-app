@@ -13,7 +13,7 @@ const useRouterStore = defineStore("router", () => {
 
   /** 跳转详情路由 */
   const carDetail = ref(getRouterParams(CacheKey.CAR_DETAIL) || {});
-  const productDetail = ref(getRouterParams(CacheKey.PRODUCT_DETAIL) || {});
+  const goodsDetail = ref(getRouterParams(CacheKey.GOODS_DETAIL) || {});
   const hotelDetail = ref(getRouterParams(CacheKey.HOTEL_DETAIL) || {});
   const jobDetail = ref(getRouterParams(CacheKey.JOB_DETAIL) || {});
   const companyDetail = ref(getRouterParams(CacheKey.COMPANY_DETAIL) || {});
@@ -27,9 +27,9 @@ const useRouterStore = defineStore("router", () => {
     carDetail.value = detail;
   };
   // 设置精品、商品
-  const setProductDetail = (detail: object) => {
-    setRouterParams(CacheKey.PRODUCT_DETAIL, detail);
-    productDetail.value = detail;
+  const setGoodsDetail = (detail: object) => {
+    setRouterParams(CacheKey.GOODS_DETAIL, detail);
+    goodsDetail.value = detail;
   };
   // 设置职位
   const setJobDetail = (detail: object) => {
@@ -54,14 +54,14 @@ const useRouterStore = defineStore("router", () => {
   return {
     searchValue,
     carDetail,
-    productDetail,
+    goodsDetail,
     jobDetail,
     companyDetail,
     hotelDetail,
     lastRouter,
     setSearchValue,
     setCarDetail,
-    setProductDetail,
+    setGoodsDetail,
     setJobDetail,
     setCompanyDetail,
     setHotelDetail,

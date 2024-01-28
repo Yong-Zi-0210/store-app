@@ -92,7 +92,7 @@ const keywords = computed(() => {
 const getJobDetail = async () => {
   try {
     const res = await jobDetail({
-      id: paramsStore.jobDetail.positionId | paramsStore.jobDetail.id,
+      id: paramsStore.jobDetail.positionId,
     });
     jobData.value = res.body;
   } catch (error) {}

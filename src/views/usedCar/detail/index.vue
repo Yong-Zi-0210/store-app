@@ -215,7 +215,7 @@ const getDetail = async () => {
   loading.value = true;
   try {
     const res = await detail({
-      id: carDetail.productId || carDetail.id,
+      id: carDetail.id,
     });
     loading.value = false;
     const {
@@ -313,24 +313,6 @@ const setTableData = () => {
   flex-direction: column;
   margin-top: 14px;
   height: 100%;
-  .app-breadcrumb {
-    height: 20px;
-    line-height: 20px;
-    margin-bottom: 8px;
-    :deep(.el-breadcrumb__item) {
-      .el-breadcrumb__inner {
-        color: #e20755;
-        a {
-          color: #e20755;
-        }
-      }
-      &:last-of-type {
-        .el-breadcrumb__inner {
-          color: #333;
-        }
-      }
-    }
-  }
   .detail-info {
     display: flex;
     flex: 1;

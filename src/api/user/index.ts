@@ -1,5 +1,6 @@
 import { request } from "@/utils/request";
 import type * as Login from "./types";
+import { ApiResponseData } from "@/utils/request/types";
 
 /** 获取登录验证码 */
 export function getLoginCodeApi(data: object) {
@@ -23,6 +24,14 @@ export function loginApi(data: Login.LoginRequestData) {
 export function logoutApi() {
   return request<Login.LogoutReaponseData>({
     url: "logout",
+    method: "post",
+  });
+}
+
+/** 获取用户等级积分 */
+export function levelPoints() {
+  return request<ApiResponseData<any>>({
+    url: "user/getUser",
     method: "post",
   });
 }

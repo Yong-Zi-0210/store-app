@@ -55,7 +55,12 @@ const useUserStore = defineStore("user", () => {
     // 重置路由
     resetRouter();
   };
-  return { avatar, userInfo, token, login, logout };
+
+  /** 更新积分 */
+  const updatePoints = (points: number) => {
+    userInfo.value.points = points;
+  };
+  return { avatar, userInfo, token, login, logout, updatePoints };
 });
 
 /** 在 setup 外使用 */
