@@ -17,8 +17,8 @@
             <ul class="info-list">
               <li class="info-item">
                 <span class="info-label">价格：</span>
-                <span class="info-value"
-                  >¥<span>{{ detail.price }}</span></span
+                <span class="info-value" v-if="selectPoint"
+                  >¥<span>{{ selectPoint }}</span></span
                 >
               </li>
             </ul>
@@ -166,6 +166,20 @@ const stockQuantity = computed(() => {
   }
 });
 
+// 选中组合的单价
+const selectPoint = computed(() => {
+  const skuKeyArr: string[] = [];
+  specsStructure.value.forEach((key) => {
+    checkParms[key] && skuKeyArr.push(checkParms[key]);
+  });
+  const key = skuKeyArr.length ? skuKeyArr.join(",") : "";
+  if (key) {
+    return detail.value?.goodsSkus[key]?.points;
+  } else {
+    return detail.value.price;
+  }
+});
+
 // 当前选择缺货的组合
 watch(
   () => Object.values(checkParms),
@@ -239,9 +253,8 @@ const getDetail = async () => {
     }
     const sotckKeys = getstockData(res.body.goodsSkus);
     sotckData.value = setStockData(res.body.specType, sotckKeys);
-    console.log(sotckData.value);
     tipsStock();
-    // setDefaultParams(specsList.value);
+    setDefaultParams(specsList.value);
   } catch (error) {
     loading.value = false;
   }
@@ -249,11 +262,11 @@ const getDetail = async () => {
 getDetail();
 
 /** 设置默认选择的规格 */
-// const setDefaultParams = (specsList: Array<any>) => {
-//   specsList.forEach((item: any) => {
-//     checkParms[item.label] = item.value[0];
-//   });
-// };
+const setDefaultParams = (specsList: Array<any>) => {
+  specsList.forEach((item: any) => {
+    checkParms[item.label] = item.value[0];
+  });
+};
 
 /** 切换图片 */
 const handleCheckImg = (url: string) => {
