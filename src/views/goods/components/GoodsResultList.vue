@@ -3,6 +3,10 @@
     <ul class="goods-list" v-if="props.dataList">
       <li class="goods-item" v-for="item in props.dataList" :key="item.id">
         <el-image :src="item.displayImage" fit="cover"></el-image>
+        <div class="points">
+          <span>{{ item.points }}</span
+          >积分
+        </div>
         <div class="price">
           ¥<span>{{ item.price }}</span>
         </div>
@@ -53,7 +57,7 @@ const jumpDetail = (id: string) => {
         width: 100%;
         height: 220px;
       }
-      .price {
+      .points {
         margin-top: 5px;
         color: #e20755;
         span {

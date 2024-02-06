@@ -11,6 +11,10 @@
         >
           <el-image :src="item.displayImage" fit="cover"></el-image>
           <div class="name">{{ item.name }}</div>
+          <div class="points">
+            <span>{{ item.description }}</span
+            >积分
+          </div>
           <div class="price">¥{{ item.secondaryName }}</div>
         </li>
       </ul>
@@ -84,10 +88,13 @@ getRecData();
       line-height: 14px;
       display: inline-block;
     }
-    .price {
-      font-size: 14px;
+    .points {
+      font-size: 12px;
       font-weight: 400;
       color: #e20755;
+      span {
+        font-size: 16px;
+      }
     }
   }
 }

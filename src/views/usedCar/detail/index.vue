@@ -37,6 +37,10 @@
               <span class="price-num">{{ formatPrice }}</span>
               <span>万</span>
             </div>
+            <div class="down-payment">
+              <span>首付 </span>
+              <span class="value">{{ downPayment }}</span>
+            </div>
             <div class="communication">
               <el-button type="primary" @click="communication"
                 >预约看车</el-button
@@ -170,6 +174,7 @@ const showImage = ref(""); // 显示的图片
 const bannerList = ref([]); // 小轮播图
 const title = ref(""); // 详情车名
 const carPrice = ref(0); // 车价
+const carDownPayment = ref(0); // 首付
 const baseAttr = ref<any>([]); // 右侧展示的属性
 const checkImage = ref([]); // 车检图片
 const descValue = ref(""); // 车辆详情描述
@@ -195,12 +200,8 @@ watch(
 );
 // 参数表格数据
 const paramsTable = computed(() => paramsData.value[currentIndex.value]);
-// 初始化
-onMounted(async () => {
-  await getDetail();
-  tableData.value = setTableData();
-});
 
+// 价格显示
 const formatPrice = computed(() => {
   const price = setPrice(carPrice.value);
   if (typeof price === "string") {
@@ -208,6 +209,14 @@ const formatPrice = computed(() => {
   } else {
     return price;
   }
+});
+// 首府
+const downPayment = computed(() => setPrice(carDownPayment.value));
+
+// 初始化
+onMounted(async () => {
+  await getDetail();
+  tableData.value = setTableData();
 });
 
 /** 获取详情数据 */
@@ -224,6 +233,7 @@ const getDetail = async () => {
       images,
       name,
       price,
+      downPayment,
       checkReports,
       description,
       appearances,
@@ -235,6 +245,7 @@ const getDetail = async () => {
     bannerList.value = images;
     title.value = name;
     carPrice.value = price;
+    carDownPayment.value = downPayment;
     descValue.value = description;
     checkImage.value = checkReports;
     outsideImage.value = appearances;
@@ -379,12 +390,6 @@ const setTableData = () => {
                 width: 2px;
                 background-color: #dedede;
               }
-              &:nth-of-type(4) {
-                &::after {
-                  content: "";
-                  width: 0;
-                }
-              }
               &:last-of-type {
                 &::after {
                   content: "";
@@ -399,6 +404,13 @@ const setTableData = () => {
             .price-num {
               font-size: 22px;
               font-weight: 500;
+            }
+          }
+          .down-payment {
+            margin-top: 12px;
+            font-size: 14px;
+            span.value {
+              color: #e20755;
             }
           }
           .communication {

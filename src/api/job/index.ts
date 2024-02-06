@@ -52,3 +52,12 @@ export function getJobById(data: object) {
     data,
   });
 }
+
+// 招聘记录点
+export function clickRecord(data: object) {
+  return request<ApiResponseData<any>>({
+    url: "recruitment/operate/recruitmentClickRecord",
+    method: "post",
+    data,
+  });
+}

@@ -22,6 +22,9 @@
             <el-icon><User /></el-icon>
             <span>{{ jobData.education }}</span>
           </div>
+          <el-button type="primary" size="small" @click="handleClick"
+            >立即沟通</el-button
+          >
         </div>
       </div>
     </div>
@@ -73,10 +76,13 @@
 </template>
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { useRouter } from "vue-router";
 import { Location, Suitcase, User } from "@element-plus/icons-vue";
 import useRouterStore from "@/store/module/router";
-import { jobDetail, companyDetail } from "@/api";
+import { getToken } from "@/utils/cache/cookies";
+import { jobDetail, companyDetail, clickRecord } from "@/api";
 
+const router = useRouter();
 const paramsStore = useRouterStore();
 const jobData = ref<any>({});
 const companyData = ref<any>({});
@@ -87,7 +93,6 @@ const keywords = computed(() => {
     return [jobData.value.keywords];
   }
 });
-
 /** 职位信息 */
 const getJobDetail = async () => {
   try {
@@ -109,6 +114,23 @@ const getCompanyDetail = async () => {
   } catch (error) {}
 };
 getCompanyDetail();
+
+// 沟通
+const handleClick = async () => {
+  const token = getToken();
+  if (!token) {
+    return router.push("/login");
+  }
+  try {
+    await clickRecord({
+      companyId: companyData.value.id,
+      positionId: jobData.value.id,
+      companyName: companyData.value.name,
+      positionName: jobData.value.name,
+    });
+    window.open(jobData.value.url);
+  } catch (error) {}
+};
 </script>
 <style lang="scss" scoped>
 .jobs {

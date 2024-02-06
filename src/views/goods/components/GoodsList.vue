@@ -6,13 +6,14 @@
       :key="item.productId"
     >
       <el-image :src="item.displayImage" fit="cover"></el-image>
+      <div class="points">
+        <span>{{ item.description }}</span
+        >积分
+      </div>
       <div class="price">
         ¥<span>{{ item.secondaryName }}</span>
       </div>
       <div class="name">{{ item.name }}</div>
-      <div class="description" :title="item.description">
-        {{ item.description }}
-      </div>
       <div class="btn" @click="jumpDetail(item)">兑换</div>
     </li>
   </ul>
@@ -43,7 +44,7 @@ const props = withDefaults(defineProps<Props>(), {
       width: 100%;
       height: 184px;
     }
-    .price {
+    .points {
       margin-top: 5px;
       color: #e20755;
       span {
