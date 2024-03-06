@@ -6,7 +6,7 @@
     <div class="nav">
       <div class="nav-list min-width">
         <div class="goods">
-          商品分类
+          热门兑换
           <ul class="good-list">
             <li
               class="list-item"
@@ -64,26 +64,18 @@
             </div>
             <span v-else class="user-login" @click="toLogin">请登录</span>
           </div>
-          <div class="rec-info">
+          <div class="rec-hot">
             <ul class="news">
-              <li class="new-item new">
-                <span class="type">New</span>
-                <span>凯宾斯基全新入驻</span>
-              </li>
-              <li class="new-item new">
-                <span class="type">HOT</span>
-                <span>暑假凤凰同行季开启</span>
-              </li>
-              <li class="new-item new">
-                <span class="type">热门</span>
-                <span>星巴克邀您到店体验</span>
+              <li class="new-item" v-for="(item, index) in hots" :key="index">
+                <span class="type" :class="index <= 2 ? 'large' : ''">{{
+                  index + 1
+                }}</span>
+                <span class="name" :title="item.name">{{ item.name }}</span>
+                <span class="icon-type" :class="hotType[item.secondaryName]">{{
+                  hotName[item.secondaryName]
+                }}</span>
               </li>
             </ul>
-          </div>
-          <div class="rec-image">
-            <img src="@/assets/images/lg_logo.png" />
-            <img src="@/assets/images/lg_logo.png" />
-            <img src="@/assets/images/lg_logo.png" />
           </div>
         </div>
       </div>
@@ -138,21 +130,39 @@ import { useJump } from "@/hooks/jump";
 const jumpDetail = useJump();
 const loading = ref(false);
 const navList = ref([
-  { name: "酒店出行", path: "hotel" },
-  { name: "二手车", path: "usedCar" },
-  { name: "精选商品", path: "goods" },
+  { name: "酒店精选", path: "hotel" },
+  { name: "买车卖车", path: "usedCar" },
+  { name: "优选好物", path: "goods" },
+  { name: "岗位热招", path: "recruitment" },
+  { name: "生活周边", path: "" },
+  { name: "爱心公益", path: "" },
 ]);
 const recNavBarData = ref([
   { title: "为你推荐", value: "002" },
-  { title: "酒店出行", value: "003" },
-  { title: "二手车", value: "004" },
-  { title: "精选商品", value: "005" },
+  { title: "热门景点", value: "003" },
+  { title: "精选好车", value: "004" },
+  { title: "品质优选", value: "005" },
 ]);
+const hotType = {
+  0: "",
+  1: "new",
+  2: "hot",
+  3: "top",
+} as any;
+
+const hotName = {
+  0: "",
+  1: "新",
+  2: "热",
+  3: "沸",
+} as any;
+
 const imageData = ref<any>({}); // 主推大图
 const otherIamge = ref<any>([]); // 主推三张小图
-const goodList = ref<any>([]); // 推荐商品分类
+const goodList = ref<any>([]); // 热门兑换
 const recData = ref<any>([]); // 首推
 const rights = ref<any>([]); // 权益商品
+const hots = ref<any>([]); // 热搜
 const userStore = useUserStore();
 
 // 当前展示的数据
@@ -203,10 +213,11 @@ const getAllRecData = async () => {
     getCoreRec("001"), // 主推荐
     getCoreRec("002"), // 为你推荐
     getCoreRec("006"), // 权益商品
-    getCoreRec("007"), // 推荐商品分类
+    getCoreRec("007"), // 热门兑换
+    getCoreRec("008"), // 热搜
   ];
   const res = await Promise.all(peromiseArr);
-  const [core, recDatas, rightsData, goodLists] = res;
+  const [core, recDatas, rightsData, goodLists, hotList] = res;
   imageData.value = core[0];
   if (core.length > 4) {
     otherIamge.value = core.slice(1, 4);
@@ -215,6 +226,7 @@ const getAllRecData = async () => {
   }
   recData.value = recDatas;
   rights.value = rightsData;
+  hots.value = hotList;
   if (goodLists.length > 10) {
     goodList.value = goodLists.slice(0, 10);
   } else {
@@ -361,32 +373,54 @@ getAllRecData();
           }
         }
       }
-      .rec-info {
+      .rec-hot {
         margin-top: 14px;
         padding-bottom: 20px;
-        border-bottom: 0.5px solid #ebebeb;
         .new-item {
           display: flex;
+          position: relative;
           align-items: center;
-          margin-bottom: 6px;
-          font-size: 14px;
+          height: 29px;
+          font-size: 13px;
           color: #666666;
           .type {
             margin-right: 8px;
-            color: #f95858;
+            color: #ff8200;
+            font-style: italic;
+            &.large {
+              color: #f95858;
+              font-size: 17px;
+              font-weight: 600;
+            }
           }
-        }
-      }
-      .rec-image {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 6px;
-        img {
-          width: 102px;
-          height: 41px;
-          margin-bottom: 16px;
-          object-fit: cover;
+          .name {
+            width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          .icon-type {
+            position: absolute;
+            right: 0;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            line-height: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #ffffff;
+            transform: scale(0.8);
+            &.hot {
+              background-color: rgb(248, 100, 0);
+            }
+            &.new {
+              background-color: rgb(255, 56, 82);
+            }
+            &.top {
+              background-color: rgb(248, 100, 0);
+            }
+          }
         }
       }
     }

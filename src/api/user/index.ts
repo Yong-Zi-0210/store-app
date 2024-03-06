@@ -35,3 +35,47 @@ export function levelPoints() {
     method: "post",
   });
 }
+
+/** 获取用户简历 */
+export function getResume() {
+  return request<ApiResponseData<any>>({
+    url: "/user/getResume",
+    method: "post",
+  });
+}
+
+/** 新增简历 */
+export function createResume(data: object) {
+  return request<ApiResponseData<any>>({
+    url: "/user/createResume",
+    method: "post",
+    data,
+  });
+}
+
+/** 修改简历 */
+export function modifyResume(data: object) {
+  return request<ApiResponseData<any>>({
+    url: "/user/modifyResume",
+    method: "post",
+    data,
+  });
+}
+
+/** 删除简历 */
+export function deleteResume(data: object) {
+  return request<ApiResponseData<any>>({
+    url: "/user/removeResume",
+    method: "post",
+    data,
+  });
+}
+
+/** 投递简历 */
+export function deliverResume(data: object) {
+  return request<ApiResponseData<any>>({
+    url: "/user/submitResume",
+    method: "post",
+    data,
+  });
+}

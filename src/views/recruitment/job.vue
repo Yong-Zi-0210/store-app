@@ -25,6 +25,9 @@
           <el-button type="primary" size="small" @click="handleClick"
             >立即沟通</el-button
           >
+          <el-button v-if="userStore.resume" size="small" @click="deliver"
+            >投递简历</el-button
+          >
         </div>
       </div>
     </div>
@@ -79,11 +82,14 @@ import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import { Location, Suitcase, User } from "@element-plus/icons-vue";
 import useRouterStore from "@/store/module/router";
+import useUserStore from "@/store/module/user";
 import { getToken } from "@/utils/cache/cookies";
-import { jobDetail, companyDetail, clickRecord } from "@/api";
+import { jobDetail, companyDetail, clickRecord, deliverResume } from "@/api";
+import { ElMessage, ElMessageBox } from "element-plus";
 
 const router = useRouter();
 const paramsStore = useRouterStore();
+const userStore = useUserStore();
 const jobData = ref<any>({});
 const companyData = ref<any>({});
 const keywords = computed(() => {
@@ -130,6 +136,34 @@ const handleClick = async () => {
     });
     window.open(jobData.value.url);
   } catch (error) {}
+};
+
+// 投递简历
+const deliver = () => {
+  const token = getToken();
+  if (!token) {
+    return router.push("/login");
+  }
+  try {
+    ElMessageBox.confirm("", "确认投递简历？", {
+      confirmButtonText: "确定",
+      cancelButtonText: "取消",
+      type: "info",
+    })
+      .then(async () => {
+        await deliverResume({
+          id: userStore.resume.id,
+          companyId: companyData.value.id,
+          positionId: jobData.value.id,
+          companyName: companyData.value.name,
+          positionName: jobData.value.name,
+        });
+        ElMessage.success("投递成功");
+      })
+      .catch(() => {});
+  } catch (error) {
+    console.error(error);
+  }
 };
 </script>
 <style lang="scss" scoped>

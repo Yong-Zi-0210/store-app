@@ -1,9 +1,14 @@
 import { defineStore } from "pinia";
-import { loginApi, logoutApi } from "@/api";
+import { loginApi, logoutApi, getResume, deleteResume } from "@/api";
 import store from "@/store";
 import { type LoginRequestData } from "@/api/user/types";
 import { removeToken, setToken } from "@/utils/cache/cookies";
-import { setUserInfo, getUserInfo } from "@/utils/cache/storage";
+import {
+  setUserInfo,
+  getUserInfo,
+  getResumeInfo,
+  setResumeInfo,
+} from "@/utils/cache/storage";
 import { ref } from "vue";
 import { resetRouter } from "@/router";
 
@@ -25,42 +30,81 @@ const useUserStore = defineStore("user", () => {
   const avatar = ref("");
   const token = ref("");
   const userInfo = ref<UserInfo>(getUserInfo()); // 用户信息
+  const resume = ref<any>(getResumeInfo()); // 用户简历
 
   /** 登录 */
   const login = async (loginData: LoginRequestData) => {
-    const { body } = await loginApi({ ...loginData });
-
-    // 缓存用户信息
-    userInfo.value = body.user;
-    setUserInfo(body.user);
-
-    // 设置token
-    const loginToken = body.loginToken;
-    token && setToken(loginToken);
-    token.value = loginToken;
-    return true;
+    try {
+      const { body } = await loginApi({ ...loginData });
+      // 缓存用户信息
+      userInfo.value = body.user;
+      setUserInfo(body.user);
+      // 设置token
+      const loginToken = body.loginToken;
+      token && setToken(loginToken);
+      token.value = loginToken;
+      return true;
+    } catch (error) {}
   };
   /** 登出 */
   const logout = async () => {
-    await logoutApi();
-
-    // 删除token信息
-    removeToken();
-    token.value = "";
-
-    // 删除用户信息
-    setUserInfo({});
-    userInfo.value = {};
-
-    // 重置路由
-    resetRouter();
+    try {
+      await logoutApi();
+      // 删除token信息
+      token.value = "";
+      removeToken();
+      // 删除用户信息
+      userInfo.value = {};
+      setUserInfo({});
+      // 重置路由
+      resetRouter();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   /** 更新积分 */
   const updatePoints = (points: number) => {
     userInfo.value.points = points;
   };
-  return { avatar, userInfo, token, login, logout, updatePoints };
+
+  /** 获取用户简历信息 */
+  const getUserResume = async () => {
+    try {
+      const res = await getResume();
+      resume.value = res.body;
+      setResumeInfo(res.body);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /** 删除用户简历 */
+  const delResume = async () => {
+    try {
+      await deleteResume({ id: resume.value.id });
+      await updateResume();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /** 更新简历 */
+  const updateResume = async () => {
+    await getUserResume();
+  };
+
+  return {
+    avatar,
+    userInfo,
+    token,
+    resume,
+    login,
+    logout,
+    updatePoints,
+    updateResume,
+    delResume,
+  };
 });
 
 /** 在 setup 外使用 */

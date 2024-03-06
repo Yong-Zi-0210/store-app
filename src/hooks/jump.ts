@@ -23,7 +23,7 @@ export function useJump() {
       // 精品、商品详情
       case "003": {
         paramsStore.setGoodsDetail({ id: item.productId });
-        router.push("goodsDetail");
+        router.push("/goods/goodsDetail");
         break;
       }
       // 酒店详情

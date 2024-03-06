@@ -2,8 +2,7 @@
   <div class="search-bar">
     <div class="main min-width">
       <div class="logo">
-        <span class="icon" @click="toHome">LOGO</span>
-        <span class="text">途途社区</span>
+        <span class="icon" @click="toHome" />
       </div>
       <div class="search-action">
         <div class="search-box">
@@ -24,23 +23,55 @@
         </ul> -->
       </div>
       <!-- <div class="code"></div> -->
+      <div class="recruiment" v-if="userSetting.onRecruiment">
+        <el-button v-if="!resume" size="large" @click="handleResume('add')"
+          >新增简历</el-button
+        >
+        <el-dropdown v-else>
+          <span class="el-dropdown-link">
+            简历
+            <el-icon class="el-icon--right">
+              <arrow-down />
+            </el-icon>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item @click="handleResume('edit')"
+                >编辑</el-dropdown-item
+              >
+              <el-dropdown-item @click="handleResume('del')"
+                >删除</el-dropdown-item
+              >
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import useSettingStore from "@/store/module/setting";
+import useUserStore from "@/store/module/user";
+import { ArrowDown } from "@element-plus/icons-vue";
 
 interface Props {
   defaultValue?: string;
   placeholder?: string;
+  resume?: any;
 }
 const router = useRouter();
 const searchValue = ref("");
+const userSetting = useSettingStore();
+const userStore = useUserStore();
 const props = withDefaults(defineProps<Props>(), {
   defaultValue: "",
   placeholder: "请输入您想要的商品名称",
+  resume: null,
 });
+
+const resume = computed(() => userStore.resume);
 
 watch(
   () => props.defaultValue,
@@ -51,10 +82,18 @@ watch(
     immediate: true,
   }
 );
-const emit = defineEmits(["handleSearch"]);
+const emit = defineEmits(["handleSearch", "handleResume"]);
+// 搜索
 const search = async () => {
   emit("handleSearch", searchValue.value);
 };
+
+// 简历操作
+const handleResume = (type: string) => {
+  emit("handleResume", type);
+};
+
+// 返回首页
 const toHome = () => {
   router.push("/home");
 };
@@ -77,17 +116,13 @@ const toHome = () => {
       font-size: 30px;
       .icon {
         display: flex;
+        width: 113px;
+        height: 42px;
         align-items: center;
         color: #e20755;
         cursor: pointer;
-        &::after {
-          content: "";
-          width: 2px;
-          height: 36.5px;
-          margin: 0 16px 0 13px;
-          background: #e2e2e2;
-          display: inline-block;
-        }
+        background: url("@/assets/images/logo.png") no-repeat center;
+        background-size: cover;
       }
       .text {
         display: inline-block;
@@ -98,7 +133,7 @@ const toHome = () => {
       display: flex;
       align-items: center;
       font-size: 16px;
-      margin-right: 110px;
+      margin-right: 75px;
       .search-input {
         display: flex;
         align-items: center;

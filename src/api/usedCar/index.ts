@@ -36,3 +36,21 @@ export function communicate(data: object) {
     data,
   });
 }
+
+// 卖车列表查询
+export function sellCarList(data: object) {
+  return request<ApiResponseData<any>>({
+    url: "/usedCar/operate/getUserSaleCars",
+    method: "post",
+    data,
+  });
+}
+
+// 申请卖车
+export function sellCar(data: object) {
+  return request<ApiResponseData<any>>({
+    url: "/usedCar/operate/saleCar",
+    method: "post",
+    data,
+  });
+}

@@ -27,7 +27,9 @@
           <div class="title">我要卖车</div>
           <div class="input-button">
             <el-input class="input" placeholder="请输入您的手机号"></el-input>
-            <el-button class="button" type="primary">卖车</el-button>
+            <el-button class="button" type="primary" @click="sellCar"
+              >卖车</el-button
+            >
           </div>
           <div class="icons">
             <div class="item balance"></div>
@@ -89,6 +91,7 @@
         </ul>
       </div>
     </div>
+    <SellCarList v-model="sellCarDialog" />
   </div>
 </template>
 <script setup lang="ts">
@@ -97,10 +100,12 @@ import { coreRec } from "@/api";
 import { useRouter } from "vue-router";
 import useRouterStore from "@/store/module/router";
 import { useJump } from "@/hooks/jump";
+import { getToken } from "@/utils/cache/cookies";
 import { prices, types, brands } from "./data";
 
 const jumpDetail = useJump();
 const loading = ref(false);
+const sellCarDialog = ref(false);
 const router = useRouter();
 const paramsStore = useRouterStore();
 const coreRecData = ref<any>([]); // 主推
@@ -156,6 +161,15 @@ const toSearchCar = (value: string) => {
   router.push({
     name: "Search",
   });
+};
+
+/** 卖车 */
+const sellCar = () => {
+  const token = getToken();
+  if (!token) {
+    return router.push("/login");
+  }
+  sellCarDialog.value = true;
 };
 </script>
 <style lang="scss" scoped>

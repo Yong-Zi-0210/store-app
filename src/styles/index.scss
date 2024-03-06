@@ -74,3 +74,10 @@ div:focus {
 .min-width {
   width: 1200px;
 }
+
+// element-ui
+.el-dropdown {
+  .el-dropdown-link {
+    outline: none;
+  }
+}

@@ -11,6 +11,7 @@ class CacheKey {
   static readonly VISITED_VIEWS = `${SYSTEM_NAME}-visited-views-key`;
   static readonly CACHED_VIEWS = `${SYSTEM_NAME}-cached-views-key`;
   static readonly USERINFO = `${SYSTEM_NAME}-userinfo`;
+  static readonly RESUMEINFO = `${SYSTEM_NAME}-resumeinfo`;
 }
 
 export default CacheKey;

@@ -67,7 +67,7 @@
           @click="jumpDetail(item.id)"
         >
           <el-image class="image" fit="cover" :src="item.displayImage" lazy />
-          <div class="name">{{ item.name }}</div>
+          <div class="name" :title="item.name">{{ item.name }}</div>
           <div class="year-mileage">
             <span class="year"
               >{{ formatDateTime(item.productionYear, "YYYY") }}年</span
@@ -300,10 +300,14 @@ const jumpDetail = (id: string) => {
       cursor: pointer;
     }
     .name {
+      max-width: 287px;
       margin-bottom: 3px;
       font-size: 16px;
       font-weight: 500;
       color: #535353;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .year-mileage {
       display: flex;

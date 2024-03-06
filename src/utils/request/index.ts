@@ -6,8 +6,8 @@ import { getToken } from "../cache/cookies";
 import { getRandomString } from "@/utils";
 
 /** 退出登录并强制刷新页面（会重定向到登录页） */
-function logout() {
-  useUserStoreHook().logout();
+async function logout() {
+  await useUserStoreHook().logout();
 }
 
 /** 创建请求实例 */
@@ -22,7 +22,7 @@ function createService() {
   );
   // 响应拦截（可根据具体业务作出相应的调整）
   service.interceptors.response.use(
-    (response) => {
+    async (response) => {
       // res 是 api 返回的数据
       const res = response.data;
       // 二进制数据则直接返回
@@ -38,7 +38,7 @@ function createService() {
         case "999403":
           // Token 过期时
           ElMessage.error("登录状态已过期");
-          logout();
+          await logout();
           return Promise.reject(new Error("登录状态已过期"));
         default:
           // 其他错误类型

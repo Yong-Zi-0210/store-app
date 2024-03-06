@@ -1,7 +1,11 @@
 <template>
   <div class="recruitment">
     <!-- 搜索 -->
-    <SearchBar placeholder="请输入职位名称" @handleSearch="toSearchCar" />
+    <SearchBar
+      placeholder="请输入职位名称"
+      @handleSearch="toSearchCar"
+      @handleResume="resumeOper"
+    />
     <div class="main min-width" v-loading="loading">
       <div class="core-rec">
         <el-image
@@ -48,20 +52,28 @@
         </div>
         <HotCompany :data="hotCompany" />
       </div>
+      <AddResume v-model="addResumeDialog" :edit="editResume" />
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { onMounted, ref } from "vue";
+import { onBeforeRouteLeave, useRouter } from "vue-router";
 import useRouterStore from "@/store/module/router";
+import useSettingStore from "@/store/module/setting";
+import useUserStore from "@/store/module/user";
 import { hotJob, hotUnit, coreRec } from "@/api";
 import { useJump } from "@/hooks/jump";
+import { getToken } from "@/utils/cache/cookies";
 
 const jumpDetail = useJump();
 const router = useRouter();
 const paramsStore = useRouterStore();
+const userSetting = useSettingStore();
+const userStore = useUserStore();
 const loading = ref(false);
+const editResume = ref(false);
+const addResumeDialog = ref(false);
 const coreRecImage = ref<any>({}); // 主推位图片
 const hotQuality = ref(); // 精选热门
 const hotJOb = ref(); // 热招岗位
@@ -74,6 +86,31 @@ const toSearchCar = (value: string) => {
   paramsStore.setSearchValue(value);
   router.push("recruitmentSearch");
 };
+
+/** 简历操作 */
+const resumeOper = (type: string) => {
+  if (type === "del") {
+    userStore.delResume();
+    return;
+  }
+  type === "edit" ? (editResume.value = true) : (editResume.value = false);
+  addResumeDialog.value = true;
+};
+
+onMounted(() => {
+  userStore.updateResume();
+  if (getToken()) {
+    userSetting.setOnRecruiment(true);
+  } else {
+    userSetting.setOnRecruiment(false);
+  }
+});
+
+onBeforeRouteLeave(() => {
+  userSetting.setOnRecruiment(false);
+});
+
+//
 
 /**
  * 获取推荐数据
