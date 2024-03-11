@@ -167,14 +167,26 @@ const initFormFields = (detail: any) => {
       positionForm[key as Key] = detail[key];
     }
     // 工作经历
-    workExperiences.value = detail.workExperiences || [];
-    submitWorkExperiences.value = detail.workExperiences || [];
+    workExperiences.value = detail.workExperiences
+      ? JSON.parse(JSON.stringify(detail.workExperiences))
+      : [];
+    submitWorkExperiences.value = detail.workExperiences
+      ? JSON.parse(JSON.stringify(detail.workExperiences))
+      : [];
     // 项目经历
-    projectExperiences.value = detail.projectExperiences || [];
-    submitProjectExperiences.value = detail.projectExperiences || [];
+    projectExperiences.value = detail.projectExperiences
+      ? JSON.parse(JSON.stringify(detail.projectExperiences))
+      : [];
+    submitProjectExperiences.value = detail.projectExperiences
+      ? JSON.parse(JSON.stringify(detail.projectExperiences))
+      : [];
     // 教育经历
-    eduExperiences.value = detail.eduExperiences || [];
-    submiteEduExperiences.value = detail.eduExperiences || [];
+    eduExperiences.value = detail.eduExperiences
+      ? JSON.parse(JSON.stringify(detail.eduExperiences))
+      : [];
+    submiteEduExperiences.value = detail.eduExperiences
+      ? JSON.parse(JSON.stringify(detail.eduExperiences))
+      : [];
     // 证书
     certificateTags.value = detail.certificate.length
       ? detail.certificate?.split(",")

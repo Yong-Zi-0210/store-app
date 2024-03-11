@@ -10,10 +10,25 @@ export function coreRec(data: object) {
 }
 
 // 收货地址列表
-
 export function addressList() {
   return request<ApiResponseData<any>>({
     url: "user/getAllReceiveAddresses",
+    method: "post",
+  });
+}
+
+// 获取当前城市
+export function getCurrentAddress() {
+  return request<ApiResponseData<any>>({
+    url: "city/getCityByIp",
+    method: "post",
+  });
+}
+
+// 可选城市列表
+export function positionCities() {
+  return request<ApiResponseData<any>>({
+    url: "city/getPositionCities",
     method: "post",
   });
 }

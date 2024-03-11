@@ -1,16 +1,24 @@
 import { defineStore } from "pinia";
-import { loginApi, logoutApi, getResume, deleteResume } from "@/api";
+import { ref } from "vue";
+import {
+  loginApi,
+  logoutApi,
+  getResume,
+  deleteResume,
+  getCurrentAddress,
+} from "@/api";
 import store from "@/store";
 import { type LoginRequestData } from "@/api/user/types";
 import { removeToken, setToken } from "@/utils/cache/cookies";
+import { ElMessage } from "element-plus";
 import {
   setUserInfo,
   getUserInfo,
   getResumeInfo,
   setResumeInfo,
 } from "@/utils/cache/storage";
-import { ref } from "vue";
 import { resetRouter } from "@/router";
+import { getCity, setCity } from "@/utils/cache/storage";
 
 export interface UserInfo {
   id?: string;
@@ -31,11 +39,11 @@ const useUserStore = defineStore("user", () => {
   const token = ref("");
   const userInfo = ref<UserInfo>(getUserInfo()); // 用户信息
   const resume = ref<any>(getResumeInfo()); // 用户简历
-
+  const city = ref(getCity());
   /** 登录 */
   const login = async (loginData: LoginRequestData) => {
     try {
-      const { body } = await loginApi({ ...loginData });
+      const { body } = await loginApi(loginData);
       // 缓存用户信息
       userInfo.value = body.user;
       setUserInfo(body.user);
@@ -56,10 +64,24 @@ const useUserStore = defineStore("user", () => {
       // 删除用户信息
       userInfo.value = {};
       setUserInfo({});
+      // 清空城市
+      city.value = null;
+      setCity("");
       // 重置路由
       resetRouter();
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  /** 获取当前城市 */
+  const getCurrentCity = async () => {
+    try {
+      const { body } = await getCurrentAddress();
+      city.value = body?.cityName;
+      setCity(body?.cityName);
+    } catch (error: any) {
+      ElMessage.error(error);
     }
   };
 
@@ -99,11 +121,13 @@ const useUserStore = defineStore("user", () => {
     userInfo,
     token,
     resume,
+    city,
     login,
     logout,
     updatePoints,
     updateResume,
     delResume,
+    getCurrentCity,
   };
 });
 

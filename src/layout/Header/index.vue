@@ -83,10 +83,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ElMessage } from "element-plus";
+import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import useUserStore from "@/store/module/user";
 import { storeToRefs } from "pinia";
+import { positionCities } from "@/api";
+import { setCity } from "@/utils/cache/storage";
 
 // const serviceRef = ref();
 // const moreRef = ref();
@@ -94,28 +97,14 @@ const addressRef = ref();
 const router = useRouter();
 const currentRoute = useRoute();
 const userStore = useUserStore();
-const address = ["上海", "苏州", "杭州", "南京"];
-const location = ref("上海");
+const address = ref(["上海", "苏州", "杭州", "南京"]);
+const location = ref(userStore.city);
 const { userInfo } = storeToRefs(userStore);
 
-// onMounted(() => {
-//   if ("geolocation" in navigator) {
-//     navigator.geolocation.getCurrentPosition(
-//       function (position) {
-//         var latitude = position.coords.latitude;
-//         var longitude = position.coords.longitude;
-//         console.log(position)
-//         console.log("纬度：", latitude);
-//         console.log("经度：", longitude);
-//       },
-//       function (error) {
-//         console.log("获取位置失败：", error.message);
-//       }
-//     );
-//   } else {
-//     console.log("不支持 Geolocation");
-//   }
-// });
+onMounted(() => {
+  getAllCites();
+});
+
 /** 用户中心 */
 const userCenter = () => {
   if (currentRoute.fullPath.indexOf("userSetting") > -1) return;
@@ -125,7 +114,11 @@ const userCenter = () => {
   window.open(route.href, "_blank");
 };
 
-const handleCommand = (address: string) => (location.value = address);
+const handleCommand = (address: string) => {
+  location.value = address;
+  setCity(address);
+  window.location.reload();
+};
 
 /** 下拉菜单 */
 const showDown = (ref: any) => {
@@ -138,6 +131,16 @@ const login = () => router.push("/login");
 /** 登出 */
 const logout = () => {
   userStore.logout();
+};
+
+/** 获取可选列表 */
+const getAllCites = async () => {
+  try {
+    const { body } = await positionCities();
+    address.value = body?.names;
+  } catch (error) {
+    ElMessage.error("获取城市列表失败");
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -220,25 +223,6 @@ const logout = () => {
         font-size: 14px;
         color: #333333;
       }
-    }
-  }
-}
-.address-popper {
-  overflow: hidden;
-  .el-check-tag {
-    &.is-checked {
-      background-color: #e20755;
-      color: #ffffff;
-    }
-  }
-  .address-list {
-    width: 118px;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0;
-    padding: 10px;
-    .address-item {
-      margin: 0 5px 5px 0;
     }
   }
 }

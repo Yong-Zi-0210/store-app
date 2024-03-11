@@ -20,5 +20,4 @@ const useSettingStore = defineStore("setting", () => {
     setOnRecruiment,
   };
 });
-
 export default useSettingStore;

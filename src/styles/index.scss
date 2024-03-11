@@ -81,3 +81,10 @@ div:focus {
     outline: none;
   }
 }
+.address-popper {
+  width: 400px;
+  .el-dropdown__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

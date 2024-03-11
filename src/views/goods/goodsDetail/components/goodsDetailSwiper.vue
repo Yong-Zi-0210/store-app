@@ -5,7 +5,6 @@
       :modules="modules"
       :slides-per-view="slidesPerView"
       :hideOnClick="false"
-      :space-between="12"
       :loop="true"
       @swiper="setVSwiperRef"
       class="base-swiper"
@@ -86,9 +85,12 @@ const handleChange = (url: string) => emit("change", url);
   margin-left: 14px;
   background-image: url("@/assets/images/arrow-right.png");
 }
-// .base-swiper {
-//   width: 100%;
-// }
+.base-swiper {
+  width: 100%;
+  :deep(.swiper-wrapper) {
+    justify-content: center;
+  }
+}
 .image-item {
   height: 64px;
   width: 64px;

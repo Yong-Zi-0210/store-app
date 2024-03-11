@@ -3,13 +3,12 @@ import { useUserStoreHook } from "@/store/module/user";
 import { ElMessage } from "element-plus";
 import { get, merge } from "lodash-es";
 import { getToken } from "../cache/cookies";
+import { getCity } from "@/utils/cache/storage";
 import { getRandomString } from "@/utils";
-
 /** 退出登录并强制刷新页面（会重定向到登录页） */
 async function logout() {
   await useUserStoreHook().logout();
 }
-
 /** 创建请求实例 */
 function createService() {
   // 创建一个 axios 实例命名为 service
@@ -98,9 +97,12 @@ function createService() {
 function createRequest(service: AxiosInstance) {
   return function <T>(config: AxiosRequestConfig): Promise<T> {
     const token = getToken();
+    const city = getCity();
+    console.log(typeof city);
     const defaultConfig = {
       headers: {
         "Content-Type": "application/json",
+        City: city ? encodeURIComponent(city) : "",
       },
       timeout: 5000,
       baseURL: import.meta.env.VITE_BASE_API,

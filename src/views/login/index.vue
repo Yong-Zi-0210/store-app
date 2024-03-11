@@ -73,8 +73,8 @@ const singup = () => {};
       display: inline-block;
       width: 453px;
       height: 84px;
-      background: url("@/assets/images/lg_logo.png") no-repeat center;
-      background-size: cover;
+      background: url("@/assets/images/lg_logo.jpg") no-repeat center;
+      background-size: contain;
     }
   }
   .login-form {

@@ -34,6 +34,22 @@ export const getRouterParams = (key: string) => {
     return JSON.parse(detail);
   }
 };
+
+// 设置路由参数
 export const setRouterParams = (key: string, obj: object) => {
   localStorage.setItem(key, JSON.stringify(obj));
+};
+
+// 设置地名
+export const setCity = (city: string) => {
+  localStorage.setItem(CacheKey.CITYNAME, city);
+};
+export const getCity = () => {
+  const city = localStorage.getItem(CacheKey.CITYNAME);
+  console.log(city);
+  if (city && city !== "undefined") {
+    return city;
+  } else {
+    return null;
+  }
 };

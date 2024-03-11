@@ -3,8 +3,10 @@ import NProgress from "nprogress"; // progress bar
 import "nprogress/nprogress.css"; // progress bar style
 import getPageTitle from "@/utils/getSysTitle";
 import useSettingStore from "@/store/module/setting";
+import useUserStore from "@/store/module/user";
 import useRouterStore from "@/store/module/router";
 import { getToken } from "@/utils/cache/cookies"; // get token from cookie
+import { getCity } from "@/utils/cache/storage";
 import "nprogress/nprogress.css";
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
@@ -15,6 +17,13 @@ router.beforeEach(async (to, _from, next) => {
   /** 重置footer背景色 */
   const settingStore = useSettingStore();
   settingStore.setFooterBgColor();
+
+  /** 获取当前城市 */
+  const userStore = useUserStore();
+  const city = getCity();
+  if (!city) {
+    userStore.getCurrentCity();
+  }
 
   /** 记录上一次的路由 */
   const routerStore = useRouterStore();
