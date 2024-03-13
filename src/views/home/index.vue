@@ -55,7 +55,7 @@
         <div class="user">
           <div class="user-info">
             <div class="avatar" />
-            <div class="info" v-if="userStore.userInfo.username">
+            <div class="info" v-if="userStore.userInfo?.username">
               <span class="username">{{ userStore.userInfo.username }}</span>
               <span class="level-title">{{
                 userStore.userInfo.levelTitle

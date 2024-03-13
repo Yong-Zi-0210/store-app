@@ -7,7 +7,7 @@ export const getUserInfo = () => {
   if (info) {
     return JSON.parse(info);
   } else {
-    return null;
+    return {};
   }
 };
 export const setUserInfo = (userInfo: UserInfo) => {

@@ -24,7 +24,7 @@
         </el-dropdown>
         <span class="address">{{ location }}</span>
       </div>
-      <ul class="actions" v-if="userInfo.id">
+      <ul class="actions" v-if="userInfo?.id">
         <li class="action-item user" @click="userCenter">
           {{ "亲爱的" + userInfo.username }}
         </li>
@@ -71,7 +71,7 @@
         <!-- <li class="action-item">网站地图</li> -->
       </ul>
       <ul class="login-action">
-        <li class="action-item logout" v-if="userInfo.id" @click="logout">
+        <li class="action-item logout" v-if="userInfo?.id" @click="logout">
           退出登录
         </li>
         <li class="action-item login" v-else>
@@ -100,7 +100,6 @@ const userStore = useUserStore();
 const address = ref(["上海", "苏州", "杭州", "南京"]);
 const location = ref(userStore.city);
 const { userInfo } = storeToRefs(userStore);
-
 onMounted(() => {
   getAllCites();
 });
