@@ -98,9 +98,9 @@ const resumeOper = (type: string) => {
 };
 
 onMounted(() => {
-  userStore.updateResume();
   if (getToken()) {
     userSetting.setOnRecruiment(true);
+    userStore.updateResume();
   } else {
     userSetting.setOnRecruiment(false);
   }

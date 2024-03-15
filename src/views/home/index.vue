@@ -46,7 +46,7 @@
             class="other-item"
             v-for="(item, index) in otherIamge"
             :key="index"
-            @click="jumpDetail(imageData)"
+            @click="jumpDetail(item)"
             :src="item.displayImage"
             fit="cover"
             lazy
@@ -66,7 +66,12 @@
           </div>
           <div class="rec-hot">
             <ul class="news">
-              <li class="new-item" v-for="(item, index) in hots" :key="index">
+              <li
+                class="new-item"
+                v-for="(item, index) in hots"
+                :key="index"
+                @click="jumpDetail(item)"
+              >
                 <span class="type" :class="index <= 2 ? 'large' : ''">{{
                   index + 1
                 }}</span>
@@ -383,6 +388,7 @@ getAllRecData();
           height: 29px;
           font-size: 13px;
           color: #666666;
+          cursor: pointer;
           .type {
             margin-right: 8px;
             color: #ff8200;
